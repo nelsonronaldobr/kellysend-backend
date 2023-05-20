@@ -14,6 +14,8 @@ connectDB();
 // Lectura y parseo del body
 app.use(express.json());
 
+app.use(express.static('uploads'))
+
 const whiteList = [
     process.env.FRONTEND_URL_BASE
 ];
@@ -31,7 +33,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 
-app.use(express.static('uploads'))
 
 /* -------------------------------------------------------------------------- */
 /*                                   ROUTES                                   */
