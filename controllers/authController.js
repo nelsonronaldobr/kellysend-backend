@@ -143,7 +143,6 @@ const confirmAccount = async (req = request, res = response) => {
     try {
 
         const user = await User.findOne({ token })
-        console.log(user);
         if (!user) {
             return res.status(401).json({
                 ok: false,
