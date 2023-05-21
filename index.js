@@ -1,11 +1,10 @@
 import { config } from 'dotenv';
-import express, { request } from 'express';
+import express from 'express';
 import { connectDB } from './database/config.js';
 import authRoutes from './routes/auth.js';
 import linksRoutes from './routes/links.js';
 import filesRoutes from './routes/files.js';
 import cors from "cors";
-import { __dirname } from './helpers/globals.js';
 import { validateString } from './helpers/validateString.js';
 
 config();
@@ -24,6 +23,7 @@ const whiteList = [
 const corsOptions = {
     origin: function (origin, callback) {
         console.log(origin);
+        console.log('VERIFY', whiteList.includes(origin));
         if (whiteList.includes(origin)) {
             callback(null, true)
 
