@@ -21,7 +21,7 @@ const whiteList = [
     'https://kellysend-app.netlify.app/'
 ];
 
-const fnCors = function (req = request, callback) {
+const fnCors = async function (req = request, callback) {
     try {
         let corsOptions;
         console.log(req.headers.origin);
@@ -35,9 +35,6 @@ const fnCors = function (req = request, callback) {
         callback(error);
     }
 };
-
-
-console.log(process.env.FRONTEND_URL_BASE);
 
 app.use(cors(fnCors))
 
