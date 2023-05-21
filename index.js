@@ -18,12 +18,13 @@ connectDB();
 app.use(express.json());
 
 const whiteList = [
-    process.env.FRONTEND_URL_BASE
+    'https://kellysend-app.netlify.app/'
 ];
 
 const fnCors = function (req = request, callback) {
     try {
         let corsOptions;
+        console.log(req.headers.origin);
         if (whiteList.includes(req.headers.origin)) {
             corsOptions = { origin: true }; // permitir el origen solicitado en la respuesta CORS
         } else {
