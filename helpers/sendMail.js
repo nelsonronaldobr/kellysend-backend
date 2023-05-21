@@ -33,7 +33,7 @@ export const emailRegister = async ({ email, name, token }) => {
                         height: 100vh;
                         padding: 30px;
                         margin: 0 auto;
-                        width: 65%;
+                        width: 70%;
                         max-witdh: 450px;
                         min-witdh: 300px;
                         background-color: #f3f4f6;
@@ -82,7 +82,7 @@ export const emailRegister = async ({ email, name, token }) => {
             <body class="body" style="height: 100% !important;">
                 <div class="container" style="height: 100% !important;">
                     <div style="display:flex;justify-content:center;align-items:center;">
-                        <img style="width:230px;margin: 0 auto;" src="https://scontent.flim16-2.fna.fbcdn.net/v/t1.15752-9/344291030_182749470995851_5341673754342222279_n.png?_nc_cat=106&ccb=1-7&_nc_sid=ae9488&_nc_ohc=KE4D_IqCOMgAX8frdJp&_nc_ht=scontent.flim16-2.fna&oh=03_AdSj0QTSiYpfEzrplUfxLJKk3gbD-2ENdqPH9MnlN5cU-g&oe=648E4FF7">
+                        <img style="width:200px;margin: 0 auto;" src="https://scontent.flim16-2.fna.fbcdn.net/v/t1.15752-9/344291030_182749470995851_5341673754342222279_n.png?_nc_cat=106&ccb=1-7&_nc_sid=ae9488&_nc_ohc=KE4D_IqCOMgAX8frdJp&_nc_ht=scontent.flim16-2.fna&oh=03_AdSj0QTSiYpfEzrplUfxLJKk3gbD-2ENdqPH9MnlN5cU-g&oe=648E4FF7">
                     </div>
                     <h1 class="h1">Confirma tu cuenta en KellySend</h1>
                     <p class="p">Hola ${name}, gracias por registrarte en nuestro servicio. Para completar tu registro, haz clic en el siguiente enlace:</p>
