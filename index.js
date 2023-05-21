@@ -36,11 +36,11 @@ const fnCors = function (req = request, callback) {
 };
 
 
+console.log(process.env.FRONTEND_URL_BASE);
 
 app.use(cors(fnCors))
 
 app.use((req, res, next) => {
-    console.log(req.url);
     if (req.url.startsWith('/uploads') || validateString(req.url)) {
         return res.sendStatus(403);
     }
