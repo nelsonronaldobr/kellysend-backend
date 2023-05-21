@@ -21,23 +21,21 @@ const whiteList = [
     process.env.FRONTEND_URL_BASE
 ];
 
-const fnCors = async function (req = request, callback) {
+const corsOptionsDelegate = (req = request, callback) => {
     try {
         let corsOptions;
         if (whiteList.includes(req.headers.origin)) {
-            console.log('entro');
-            corsOptions = { origin: true }; // permitir el origen solicitado en la respuesta CORS
+            corsOptions = { origin: true };
         } else {
-            corsOptions = { origin: false }; // desactivar CORS para esta solicitud
+            corsOptions = { origin: false };
         }
-        callback(null, corsOptions); // el callback espera dos parámetros: error y opciones
+        callback(null, corsOptions);
     } catch (error) {
         callback(error);
     }
 };
-console.log(process.env.FRONTEND_URL_BASE);
 
-app.use(cors(fnCors))
+app.use(cors(corsOptionsDelegate))
 
 app.use((req, res, next) => {
     if (req.url.startsWith('/uploads') || validateString(req.url)) {
