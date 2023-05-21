@@ -17,7 +17,7 @@ connectDB();
 // Lectura y parseo del body
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({ origin: process.env.FRONTEND_URL_BASE, allowedHeaders: ["Authorization", "Content-Type"] }));
 
 app.use((req, res, next) => {
     if (req.url.startsWith('/uploads') || validateString(req.url)) {
