@@ -1,10 +1,11 @@
 import { config } from 'dotenv';
-import express from 'express';
+import express, { request } from 'express';
 import { connectDB } from './database/config.js';
 import authRoutes from './routes/auth.js';
 import linksRoutes from './routes/links.js';
 import filesRoutes from './routes/files.js';
 import cors from "cors";
+import { __dirname } from './helpers/globals.js';
 import { validateString } from './helpers/validateString.js';
 
 config();
@@ -20,18 +21,23 @@ const whiteList = [
     process.env.FRONTEND_URL_BASE
 ];
 
-const corsOptions = {
-    origin: function (origin, callback) {
-        console.log(origin);
-        console.log('VERIFY', whiteList.includes(origin));
-        if (whiteList.includes(origin)) {
-            callback(null, true)
-
+const fnCors = async function (req = request, callback) {
+    try {
+        let corsOptions;
+        if (whiteList.includes(req.headers.origin)) {
+            console.log('entro');
+            corsOptions = { origin: true }; // permitir el origen solicitado en la respuesta CORS
         } else {
-            callback(new Error("Error de Cors"))
+            corsOptions = { origin: false }; // desactivar CORS para esta solicitud
         }
-    },
-}
+        callback(null, corsOptions); // el callback espera dos parámetros: error y opciones
+    } catch (error) {
+        callback(error);
+    }
+};
+console.log(process.env.FRONTEND_URL_BASE);
+
+app.use(cors(fnCors))
 
 app.use((req, res, next) => {
     if (req.url.startsWith('/uploads') || validateString(req.url)) {
@@ -40,9 +46,9 @@ app.use((req, res, next) => {
     next();
 });
 
+
 app.use('/uploads', express.static('uploads'))
 
-app.use(cors(corsOptions))
 
 /* -------------------------------------------------------------------------- */
 /*                                   ROUTES                                   */
