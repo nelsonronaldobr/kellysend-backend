@@ -18,26 +18,20 @@ connectDB();
 app.use(express.json());
 
 const whiteList = [
-    'https://kellysend-app.netlify.app/'
+    process.env.FRONTEND_URL_BASE
 ];
 
-const fnCors = async function (req = request, callback) {
-    try {
-        let corsOptions;
-        console.log(req.headers.origin);
-        if (whiteList.includes(req.headers.origin)) {
-            corsOptions = { origin: true }; // permitir el origen solicitado en la respuesta CORS
-        } else {
-            corsOptions = { origin: false }; // desactivar CORS para esta solicitud
-        }
-        callback(null, corsOptions); // el callback espera dos parámetros: error y opciones
-    } catch (error) {
-        callback(error);
-    }
-};
-console.log(process.env.FRONTEND_URL_BASE);
+const corsOptions = {
+    origin: function (origin, callback) {
+        console.log(origin);
+        if (whiteList.includes(origin)) {
+            callback(null, true)
 
-app.use(cors(fnCors))
+        } else {
+            callback(new Error("Error de Cors"))
+        }
+    },
+}
 
 app.use((req, res, next) => {
     if (req.url.startsWith('/uploads') || validateString(req.url)) {
@@ -46,9 +40,9 @@ app.use((req, res, next) => {
     next();
 });
 
-
 app.use('/uploads', express.static('uploads'))
 
+app.use(cors(corsOptions))
 
 /* -------------------------------------------------------------------------- */
 /*                                   ROUTES                                   */
